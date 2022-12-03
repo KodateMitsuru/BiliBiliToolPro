@@ -39,8 +39,8 @@ COPY ./docker/scripts/* ./docker/crontab /app/scripts/
 RUN ln -fs /usr/share/zoneinfo/$TIME_ZONE /etc/localtime \
     && echo $TIME_ZONE > /etc/timezone \
     && cp /etc/apt/sources.list /etc/apt/sources.list.bak \
-	&& sed -i 's/deb.debian.org/mirrors.163.com/g' /etc/apt/sources.list \
-	&& sed -i 's/security.debian.org/mirrors.163.com/g' /etc/apt/sources.list \
+#	&& sed -i 's/deb.debian.org/mirrors.163.com/g' /etc/apt/sources.list \
+#	&& sed -i 's/security.debian.org/mirrors.163.com/g' /etc/apt/sources.list \
 	&& apt-get clean \ 
     && apt-get update \
     && apt-get install -y cron tzdata tofrodos \
