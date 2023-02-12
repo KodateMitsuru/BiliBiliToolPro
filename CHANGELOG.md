@@ -80,3 +80,10 @@
 - Feature( #359 )，兼容读取不到`$QL_DIR`的情况
 ## 0.4.0
 - 合并PR（ #381 #383 ），新增直播间挂机功能，感谢@bakapiano
+## 0.4.1
+- Merge PR #418 : Fix search video api's error, thx @catlair
+## 0.4.2
+- Merfe PRs #425 #426 #427 : Enhancement docker things, thx @zclkkk
+## 0.4.3
+- Feature #419 : Add a auto shell script for install with docker
+- Feature #396 : Publish docker image to GitHub pkg
