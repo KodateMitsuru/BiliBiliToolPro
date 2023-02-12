@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Text;
 using System.Threading;
-using System.Timers;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -16,7 +13,7 @@ using Ray.BiliBiliTool.Agent.BiliBiliAgent.Interfaces;
 using Ray.BiliBiliTool.Config.Options;
 using Ray.BiliBiliTool.DomainService.Dtos;
 using Ray.BiliBiliTool.DomainService.Interfaces;
-using Ray.BiliBiliTool.Infrastructure;
+using Ray.BiliBiliTool.Infrastructure.Cookie;
 
 namespace Ray.BiliBiliTool.DomainService
 {
@@ -571,7 +568,7 @@ namespace Ray.BiliBiliTool.DomainService
         private List<FansMedalInfoDto> GetFansMedalInfoList()
         {
             _logger.LogInformation("【获取直播列表】获取拥有粉丝牌的直播列表");
-            var medalWallInfo = this._liveApi.GetMedalWall(int.Parse(this._biliCookie.UserId)).Result;
+            var medalWallInfo = _liveApi.GetMedalWall(_biliCookie.UserId).Result;
 
             if (medalWallInfo.Code != 0)
             {

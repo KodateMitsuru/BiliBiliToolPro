@@ -37,7 +37,7 @@ namespace Ray.BiliBiliTool.Agent.Extensions
                 if (!string.IsNullOrWhiteSpace(old)) list.Add(old);
 
                 var configList = config.GetSection("BiliBiliCookies")
-                    .Get<List<string>>()
+                    .Get<List<string>>() ?? new List<string>()
                     .Where(x => !string.IsNullOrWhiteSpace(x))
                     .ToList();
                 list.AddRange(configList);
@@ -75,7 +75,7 @@ namespace Ray.BiliBiliTool.Agent.Extensions
             services.AddBiliBiliClientApi<ILiveTraceApi>("https://live-trace.bilibili.com");
 
             //qinglong
-            var qinglongHost = configuration["QL_URL"]?? "http://localhost:5600";
+            var qinglongHost = configuration["QL_URL"] ?? "http://localhost:5600";
             services
                 .AddHttpApi<IQingLongApi>(o =>
                 {
@@ -121,7 +121,7 @@ namespace Ray.BiliBiliTool.Agent.Extensions
                 httpClientBuilder.ConfigureHttpClient((sp, c) =>
                 {
                     var ck = sp.GetRequiredService<BiliCookie>();
-                    c.DefaultRequestHeaders.Add("Cookie", ck.CookieStr);
+                    c.DefaultRequestHeaders.Add("Cookie", ck.ToString());
                 });
 
             return services;
