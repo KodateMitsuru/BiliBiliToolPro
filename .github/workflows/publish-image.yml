@@ -26,23 +26,20 @@ jobs:
   PublishImage:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
       - name: GetTargetVersion
         id: getTargetVersion
         run: |
           TargetVersion=""
           if [ "${{ github.event.release.tag_name }}" ] ; then
             TargetVersion=${{ github.event.release.tag_name }}
-          fi
-          if [ "${{ github.event.inputs.manualTag }}" ] ; then
-            TargetVersion=${{ github.event.inputs.manualTag }}
+          else
+            TargetVersion=$(grep -oP '(?<=<Version>).*?(?=<\/Version>)' ./common.props)
           fi
           echo "TargetVersion: $TargetVersion"
           echo "TargetVersion=$TargetVersion" >> $GITHUB_OUTPUT
-
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          ref: ${{ steps.getTargetVersion.outputs.TargetVersion }}
       
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
